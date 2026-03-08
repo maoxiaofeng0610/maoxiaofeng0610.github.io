@@ -7,21 +7,22 @@ redirect_from:
   - /about.html
 ---
 
-I am a Research Engineer in AI and Robotics at Shadow Robot, where I work on the co-design of learning algorithms and robotic hardware for dexterous manipulation. I completed my PhD at the University of Edinburgh under the supervision of Prof. Michael Mistry.
+I am a Research Engineer in AI and Robotics at Shadow Robot, where I work on the co-design of learning algorithms and robot embodiment for dexterous manipulation. I completed my PhD at the University of Edinburgh under the supervision of Prof. Michael Mistry.
 
-My research lies at the intersection of embodied AI, robot learning, and dexterous manipulation. I am motivated by building intelligent robotic agents that can perceive, reason, and act effectively in contact-rich real-world environments. In particular, I aim to enable robots with human-level agility and intelligence, and beyond-human dexterity for challenging manipulation tasks.
+My research lies at the intersection of embodied AI, robot learning, and dexterous manipulation. I am motivated by building intelligent robotic agents that can perceive, reason, and act effectively in contact-rich real-world environments. In particular, I aim to enable robots with human-level agility and intelligence, and even beyond-human dexterity, for challenging manipulation tasks.
 
 
 Research Focus
 ======
-My work focuses on multimodal robot learning, data-efficient imitation and reinforcement learning, long-horizon dexterous manipulation, and sim-to-real transfer for reliable deployment on real robotic systems.
+My work focuses on multimodal robot learning, data-efficient imitation and reinforcement learning, long-horizon dexterous manipulation, and sim-to-real transfer for reliable deployment on real robot.
 
 
 - Multimodal robot learning for dexterous manipulation, especially with tactile sensing
-- Data-efficient learning from demonstration and imitation learning
+- Data-efficient imitation learning from limited demonstrations
 - Efficient reinforcement learning for long-horizon dexterous tasks with sparse rewards
 - Sim-to-real transfer for robust real-world deployment
-- Co-design of robot learning algorithms and dexterous robotic hardware
+- Co-design of robot learning algorithms and dexterous robot morphology
+- Cross-embodiment learning and morphology evolution
 
 <!-- Core Abilities
 ======
