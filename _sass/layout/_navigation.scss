@@ -204,10 +204,15 @@
 
   .visible-links {
     display: table;
+    margin-left: 0.75rem;
 
     li {
       display: table-cell;
       vertical-align: middle;
+
+      &.masthead__menu-item--shift-start {
+        padding-left: 1rem;
+      }
 
       &:first-child {
         font-weight: bold;
@@ -222,15 +227,6 @@
         a {
           margin-right: 0;
         }
-      }
-    }
-
-    #theme-toggle {
-      a {
-        width: 25px;
-        display: flex;
-        justify-content: center;
-        cursor: pointer;
       }
     }
 

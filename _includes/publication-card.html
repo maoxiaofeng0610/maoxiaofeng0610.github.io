@@ -1,0 +1,127 @@
+{% include base_path %}
+{% assign publication = include.post | default: post %}
+
+{% if publication.id %}
+  {% assign title = publication.title | markdownify | remove: "<p>" | remove: "</p>" | strip %}
+{% else %}
+  {% assign title = publication.title | strip %}
+{% endif %}
+
+{% assign media_type = publication.media_type | default: "image" %}
+{% assign media_src = publication.media %}
+{% if media_src == nil or media_src == "" %}
+  {% assign media_src = publication.header.teaser %}
+  {% if media_src %}
+    {% unless media_src contains "/" or media_src contains "://" %}
+      {% assign media_src = "/images/" | append: media_src %}
+    {% endunless %}
+  {% endif %}
+{% endif %}
+{% if media_src == nil or media_src == "" %}
+  {% assign media_src = "/images/600x300.png" %}
+{% endif %}
+{% assign media_prefix = media_src | slice: 0 %}
+{% unless media_src contains "://" %}
+  {% unless media_prefix == "/" %}
+    {% assign media_src = "/" | append: media_src %}
+  {% endunless %}
+  {% assign media_src = media_src | prepend: base_path %}
+{% endunless %}
+
+{% assign media_poster = publication.media_poster %}
+{% if media_poster and media_poster != "" %}
+  {% assign media_poster_prefix = media_poster | slice: 0 %}
+  {% unless media_poster contains "://" %}
+    {% unless media_poster_prefix == "/" %}
+      {% assign media_poster = "/" | append: media_poster %}
+    {% endunless %}
+    {% assign media_poster = media_poster | prepend: base_path %}
+  {% endunless %}
+{% endif %}
+
+{% assign summary = publication.description | default: publication.excerpt %}
+{% assign publication_authors = publication.authors | default: publication.author %}
+{% assign publication_authors_display = publication_authors %}
+{% capture me_markup %}<span class="publication-card__author--me">{{ site.author.name }}</span>{% endcapture %}
+{% if publication_authors_display and publication_authors_display != "" and site.author.name and site.author.name != "" %}
+  {% assign publication_authors_display = publication_authors_display | replace: site.author.name, me_markup %}
+{% endif %}
+{% assign title_href = publication.paperurl | default: publication.url %}
+{% assign title_href_is_external = false %}
+{% if title_href contains "://" %}
+  {% assign title_href_is_external = true %}
+{% endif %}
+{% if title_href_is_external %}
+  {% assign title_href_resolved = title_href %}
+{% else %}
+  {% assign title_href_resolved = title_href | prepend: base_path %}
+{% endif %}
+
+<div class="publication-card">
+  <div class="publication-card__media">
+    {% if media_type == "video" %}
+      {% if media_src contains "youtube.com/watch?v=" %}
+        {% assign media_src = media_src | replace: "watch?v=", "embed/" %}
+      {% elsif media_src contains "youtu.be/" %}
+        {% assign media_src = media_src | replace: "youtu.be/", "www.youtube.com/embed/" %}
+      {% endif %}
+
+      {% if media_src contains "youtube.com/embed/" or media_src contains "player.vimeo.com/video/" %}
+        <div class="publication-card__video-frame">
+          <iframe src="{{ media_src }}" title="{{ title | strip_html }}" loading="lazy" allowfullscreen></iframe>
+        </div>
+      {% else %}
+        <video controls preload="metadata" playsinline{% if media_poster %} poster="{{ media_poster }}"{% endif %}>
+          <source src="{{ media_src }}">
+          Your browser does not support the video tag.
+        </video>
+      {% endif %}
+    {% else %}
+      <img src="{{ media_src }}" alt="{{ publication.media_alt | default: title | strip_html }}">
+    {% endif %}
+  </div>
+
+  <div class="publication-card__body">
+    <h2 class="archive__item-title publication-card__title">
+      <a href="{{ title_href_resolved }}"{% unless title_href_is_external %} rel="permalink"{% endunless %}>{{ title }}</a>
+    </h2>
+
+    {% if publication_authors and publication_authors != "" %}
+      <p class="publication-card__authors">{{ publication_authors_display }}</p>
+    {% endif %}
+
+    <p class="publication-card__meta">
+      {% if publication.venue %}<span>{{ publication.venue }}</span>{% endif %}
+      {% if publication.date %}<span>{{ publication.date | date: "%Y" }}</span>{% endif %}
+    </p>
+
+    {% if summary and summary != "" %}
+      <div class="archive__item-excerpt publication-card__excerpt">
+        {{ summary | markdownify }}
+      </div>
+    {% endif %}
+
+    {% assign has_resource = false %}
+    {% if publication.paperurl or publication.slidesurl or publication.bibtexurl %}
+      <p class="publication-card__links">
+        {% if publication.paperurl %}
+          <a href="{{ publication.paperurl }}">Paper</a>
+          {% assign has_resource = true %}
+        {% endif %}
+        {% if publication.slidesurl %}
+          {% if has_resource %}<span class="publication-card__sep">|</span>{% endif %}
+          <a href="{{ publication.slidesurl }}">Slides</a>
+          {% assign has_resource = true %}
+        {% endif %}
+        {% if publication.bibtexurl %}
+          {% if has_resource %}<span class="publication-card__sep">|</span>{% endif %}
+          <a href="{{ publication.bibtexurl }}">BibTeX</a>
+        {% endif %}
+      </p>
+    {% endif %}
+
+    {% if publication.citation %}
+      <p class="publication-card__citation">Citation: {{ publication.citation }}</p>
+    {% endif %}
+  </div>
+</div>

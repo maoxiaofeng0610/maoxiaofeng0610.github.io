@@ -6,8 +6,9 @@ author_profile: true
 ---
 
 {% if site.author.googlescholar %}
-  <div class="wordwrap">You can also find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
+  <div class="wordwrap">You can also find my articles on <a href="{{https://scholar.google.co.uk/citations?user=pWzUNKIAAAAJ&hl=en&oi=ao}}">my Google Scholar profile</a>.</div>
 {% endif %}
+<!-- <p>Add `media_type` (`image` or `video`) and `media` in each publication front matter to control the left media panel.</p> -->
 
 {% include base_path %}
 
@@ -23,14 +24,13 @@ author_profile: true
         <h2>{{ category[1].title }}</h2><hr />
         {% assign title_shown = true %}
       {% endunless %}
-      {% include archive-single.html %}
+      {% include publication-card.html post=post %}
     {% endfor %}
   {% endfor %}
 {% else %}
   {% for post in site.publications reversed %}
-    {% include archive-single.html %}
+    {% include publication-card.html post=post %}
   {% endfor %}
 {% endif %}
-
 
 
