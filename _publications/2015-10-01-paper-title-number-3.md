@@ -8,7 +8,7 @@ permalink: /publication/2015-10-01-paper-title-number-3
 date: 2025-10-01
 venue: '9th Annual Conference on Robot Learning (CoRL)'
 # slidesurl: 'https://academicpages.github.io/files/slides3.pdf'
-paperurl: 'https://openreview.net/forum?id=yOWUy97hmd#discussion'
+paperurl: 'https://proceedings.mlr.press/v305/mao25a.html'
 media_type: image
 media: /images/publications/priviledged_main_figure2.png
 media_alt: "privileged action overview figure"
